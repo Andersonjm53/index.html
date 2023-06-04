@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="https://atmos.koffice.site/views/_img/favicon.png">
+
+	<title>Atmos :: kOfficePanel</title>
+
+    <!-- Pre-Loader -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/pre-loader.css">
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/pre-loader-dark.css">
+
+	<!-- JQuery -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_js/jquery/jquery-3.1.1.min.js"></script>
+
+	<!-- Js Cookie -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_plugins/js-cookie/js.cookie.min.js"></script>
+
+	<!-- try to understand =) -->
+	<script type="text/javascript">
+		(function($) {
+			$.xhrPool = [];
+			$.xhrPool.abortAll = function() {
+			    $(this).each(function(idx, jqXHR) {
+			        jqXHR.abort();
+			    });
+			    $.xhrPool = [];
+			};
+
+			$.ajaxSetup({
+			    beforeSend: function(jqXHR) {
+			        $.xhrPool.push(jqXHR);
+			    },
+			    complete: function(jqXHR) {
+			        var index = $.xhrPool.indexOf(jqXHR);
+			        if (index > -1) {
+			            $.xhrPool.splice(index, 1);
+			        }
+			    }
+			});
+
+			window.onbeforeunload = function() {
+				$.xhrPool.abortAll();
+			}
+		})(jQuery);
+	</script>
+
+</head>
+<body>
+	<!-- Pre-Loader -->
+	<div id="loader-wrapper">
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebar" class="px-0 bg-dark bg-gradient sidebar">
+				<ul class="nav nav-pills flex-column">
+					<li class="logo-nav-item">
+						<a class="navbar-brand" href="#">
+							<img src="https://imgur.com/j9kHWK0.jpg" width="145" height="32.3" alt="kOfficePanel">
+						</a>
+					</li>
+					<li>
+						<h6 class="nav-header">Administração</h6>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="https://atmos.koffice.site/dashboard/">
+							<i class="fad fa-fw fa-browser"></i>
+							Dashboard						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="https://atmos.koffice.site/connections/">
+							<i class="fad fa-fw fa-wifi"></i>
+							Conexões Ativas						</a>
+					</li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-user-headset"></i>
+	                        Tickets Suporte	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/ticket/create/">Criar novo Ticket</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/ticket/">Gerenciar Tickets</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-robot"></i>
+							Chatbot							<span class="badge badge-danger">Novo*</span>
+	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/chatbot/">Histórico de Mensagens</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/chatbot/settings/">Configurações do Chatbot</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-tools"></i>
+	                        Ferramentas	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/utilities/shortener/">Encurtador</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li>
+						<h6 class="nav-header">Informações</h6>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="https://atmos.koffice.site/informations/">
+							<i class="fad fa-fw fa-newspaper"></i>
+							Regras e Noticias						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="https://atmos.koffice.site/informations/apps/">
+							<i class="fad fa-fw fa-cloud-download"></i>
+							Aplicativos						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="https://atmos.koffice.site/informations/support/">
+							<i class="fad fa-fw fa-hands-helping"></i>
+							Material de Ajuda						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="https://atmos.koffice.site/informations/newcontent/">
+							<i class="fad fa-fw fa-play"></i>
+							Novos Conteúdos						</a>
+					</li>
+					<li>
+						<h6 class="nav-header">IPTV</h6>
+					</li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-bug"></i>
+	                        Criar Teste	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/test/"> Customizado</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/test/mag/">Mag</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link" href="https://atmos.koffice.site/test/fast_client/2">PLANO COMPLETO 4 HORAS SD,HD,FHD,H265,4K</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-user-friends"></i>
+	                        Clientes	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/clients/create/">Criar Cliente</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/clients/analyze/">Migrar de outro Servidor</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/clients/">Gerenciar Clientes</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-desktop"></i>
+	                        Mags	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/mag/create/">Criar Mag</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/mag/">Gerenciar Mags</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li>
+						<h6 class="nav-header">P2P</h6>
+					</li>                
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-spider"></i>
+	                        Criar Teste P2P	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/test/p2p/">Customizado</a>
+	                        </li>
+
+	                        <li class="nav-item">
+	                            <a class="nav-link" href="https://atmos.koffice.site/test/fast_p2p/2">PLANO COMPLETO 4 HORAS SD,HD,FHD,H265,4K</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-key-skeleton"></i>
+	                        Clientes P2P	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/p2p/create/">Criar P2P</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/p2p/">Gerenciar P2P</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li>
+						<h6 class="nav-header">Loja</h6>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="https://atmos.koffice.site/shop/">
+							<i class="fad fa-fw fa-shopping-cart"></i>
+							Comprar Créditos						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link " href="https://atmos.koffice.site/shop/statistics/">
+							<i class="fad fa-fw fa-chart-line"></i>
+							Estatisticas da Loja						</a>
+					</li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-cog"></i>
+	                        Configurações	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                    	<li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/shop/credits/">Vender Créditos</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/shop/clientarea/">Área do Cliente</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/shop/paymentmethod/">Métodos de Pagamento</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li>
+						<h6 class="nav-header">Sistema</h6>
+					</li>
+					<li class="nav-item">
+	                    <a class="nav-link nav-parent " href="#">
+	                        <i class="fad fa-fw fa-history"></i>
+	                        Logs	                    </a>
+	                    <ul class="nav nav-pills flex-column">
+	                    	<li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/logs/login/">Logs de Login</a>
+	                        </li>
+	                    	<li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/logs/sales/">Logs de Vendas</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/logs/credits/">Logs de Créditos</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/logs/clients/">Logs de Clientes</a>
+	                        </li>
+	                        <li class="nav-item">
+	                            <a class="nav-link " href="https://atmos.koffice.site/logs/resellers/">Logs do Revendedor</a>
+	                        </li>
+	                    </ul>
+	                </li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://atmos.koffice.site/dashboard/logout/">
+							<i class="fad fa-fw fa-power-off"></i>
+							Sair						</a>
+					</li>
+				</ul>
+			</nav>
+			<div class="right-column">
+				<nav class="navbar navbar-expand-lg navbar-light bg-white">
+					<a class="navbar-brand d-block d-sm-block d-md-block d-lg-none" href="#">
+						<img src="https://imgur.com/j9kHWK0.jpg" width="145" height="32.3" alt="kOfficePanel">
+					</a>
+					<button class="hamburger hamburger--slider" type="button" data-target=".sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle Sidebar">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+					<!-- Added Mobile-Only Menu -->
+					<ul class="navbar-nav ml-auto mobile-only-control d-block d-sm-block d-md-block d-lg-none">
+						<li class="nav-item dropdown" style="position: static;">
+					        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbar-notification-search-mobile" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+					        	<i class="fas fa-user-cog fa-2x"></i>
+					        </a>
+					        <ul class="dropdown-menu dropdown-menu-fullscreen" aria-labelledby="navbar-notification-search-mobile" style="width: 946px;">
+					        	<li><p class="credits dropdown-item" style="color: white; font-weight: bold; text-transform: uppercase;">1 Créditos</p></li>
+					          	<li><a class="dropdown-item waves-effect waves-light" href="https://atmos.koffice.site/profile/">MINHA CONTA</a></li>
+					          	<li><a class="dropdown-item waves-effect waves-light" href="https://atmos.koffice.site/dashboard/logout/">SAIR</a></li>
+					        </ul>
+					    </li>
+					</ul>
+
+					<!--  DEPRECATED CODE:
+						<div class="navbar-collapse" id="navbarSupportedContent">
+					-->
+					<!-- USE THIS CODE Instead of the Commented Code Above -->
+					<!-- .collapse added to the element -->
+					<div class="collapse navbar-collapse" id="navbar-header-content">
+	                    <ul class="navbar-nav navbar-language-translation ">
+	                        <li class="nav-item dropdown">
+	                            <a class="nav-link dropdown-toggle" id="navbar-dropdown-menu-link" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+	                                <i class="fa fa-globe-americas"></i>
+	                                Português Brasil
+	                            </a>
+	                            <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-menu-link">
+	                                <li><a class="dropdown-item" href="#">Inglês (EM BREVE)</a></li>
+	                                <li><a class="dropdown-item" href="#">Espanhol (EM BREVE)</a></li>
+	                                <li><a class="dropdown-item" href="#">Russo (EM BREVE)</a></li>
+	                            </ul>
+	                        </li>
+	                    </ul>
+	                    <ul class="navbar-nav navbar-theme mr-auto">
+	                        <li class="nav-item dropdown">
+	                            <a class="nav-link dropdown-toggle" id="navbar-dropdown-menu-link" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+	                                <i class="fa fa-palette"></i>
+	                                <span class="c-theme"></span>
+	                            </a>
+	                            <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-menu-link">
+	                                <li><a class="dropdown-item" href="#" data-value="white_theme">Tema Claro</a></li>
+	                                <li><a class="dropdown-item" href="#" data-value="dark_theme">Tema Escuro</a></li>
+	                            </ul>
+	                        </li>
+	                    </ul>
+
+				      	<ul class="navbar-nav float-right">
+				        	<li class="nav-item dropdown">
+				                <a href="https://atmos.koffice.site/shop/" class="m-0 mr-2"><span class="badge badge-pill badge-success" style="font-size: 12px;"><i class="fa fa-shopping-cart"></i> COMPRAR</span></a>
+				            </li>
+				      	</ul>
+						<ul class="navbar-nav float-right">
+				        	<li class="nav-item dropdown">
+				                <span class="credits no-waves-effect badge badge-pill badge-danger" style="font-size: 12px;">1 Créditos</span>
+				            </li>
+				      	</ul>
+
+						<ul class="navbar-nav ml-5 navbar-profile">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" id="navbar-dropdown-navbar-profile" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+									<div class="profile-name">
+										andersonmorais									</div>
+									<div class="profile-picture bg-gradient bg-primary has-message float-right">
+										<img src="https://atmos.koffice.site/views/_img/profile-pic.png" width="44" height="44">
+									</div>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-navbar-profile">
+									<li><a class="dropdown-item" href="https://atmos.koffice.site/profile/">MINHA CONTA</a></li>
+									<li><a class="dropdown-item" href="https://atmos.koffice.site/dashboard/logout/">SAIR</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				<main class="main-content p-5" role="main">
+
+					<div class="row">
+						<div class="col-md-12">
+							<h2>Informações</h2>
+						</div>
+					</div>
+					<div class="row mb-4">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">Material de Ajuda</div>
+								<div class="card-body">
+									<span><p>● <strong>COMUNIDADE DE NOTÍCIAS PELO WHATSAPP</strong></p>
+
+<p>➥ <strong><a href="http://atmos.enc.link/fgXoxMUnH"><span style="color:#3498db;">Comunidade de Notícias WhatsApp.</span></a></strong></p>
+
+<p>● <strong>SUPORTE 24HRS NO ROBÔ WHATSAPP</strong></p>
+
+<p>➥ <strong><a href="https://api.whatsapp.com/send?phone=5547996042315">Robô WhatsApp 24 Horas</a></strong></p>
+
+<hr /><p>● <strong>SUPORTE 24HRS NO TELEGRAM</strong></p>
+
+<p>➥ <strong><a href="https://t.me/atmosiptv_bot">Robô Telegram 24 Horas</a></strong></p>
+
+<hr /><p>●<strong> CANAL DE AVISOS</strong></p>
+
+<p>➥ <strong><a href="https://t.me/+DLpPpyTSeW8yYjdh">Canal de Avisos</a></strong></p>
+
+<hr /><p>●<strong> CANAL DE BANNER'S </strong></p>
+
+<p>➥ <a href="https://t.me/+zbU27ur5dkExMjUx"><b>Canal de Banner de Divulgação</b></a></p>
+
+<hr /><p>●<strong> CANAL DE BANNER'S JOGOS</strong></p>
+
+<p>➥ <a href="https://t.me/+aptFuCylHQQ0M2Ex"><b>Canal de Banner de Jogos</b></a></p>
+
+<hr /><h1><span style="color:#000000;"><strong><span style="background-color:#8e44ad;">TREINAMENTO KOFFICE - ATMOS</span></strong></span></h1>
+
+<hr /><p><strong><span style="color:#000000;"><span style="background-color:#e74c3c;">1 - Como fazer login no Koffice.</span></span></strong></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760263260">https://vimeo.com/760263260</a></p>
+
+<hr /><p><strong><span style="color:#000000;"><span style="background-color:#e74c3c;">2 - Como Salvar o Nome Cliente.</span></span></strong></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760263647">https://vimeo.com/760263647</a></p>
+
+<hr /><p><span style="color:#000000;"><strong><span style="background-color:#e74c3c;">3 - P2P - Como Ativar, Editar, Renovar.</span></strong></span></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760263868">https://vimeo.com/760263868</a></p>
+
+<hr /><p><strong><span style="color:#000000;"><span style="background-color:#e74c3c;">4 - IPTV - Como Ativar, Editar, Renovar.</span></span></strong></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760264082">https://vimeo.com/760264082</a></p>
+
+<hr /><p><strong><span style="color:#000000;"><span style="background-color:#e74c3c;">5 - Como Criar Revendedor.</span></span></strong></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760264470">https://vimeo.com/760264470</a></p>
+
+<hr /><p><strong><span style="color:#000000;"><span style="background-color:#e74c3c;">6 - Relatorio de Vencimento Clientes Pelo Painel Koffice.</span></span></strong></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760264834">https://vimeo.com/760264834</a></p>
+
+<hr /><p><strong><span style="color:#000000;"><span style="background-color:#e74c3c;">7 - Conexão Ativas</span></span></strong></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760265430">https://vimeo.com/760265430</a></p>
+
+<hr /><p><span style="color:rgb(0,0,0);font-weight:bold;background-color:rgb(231,76,60);">8 </span><span style="color:rgb(0,0,0);font-weight:bold;background-color:rgb(231,76,60);">- Aonde Gastei Meus Créditos?</span></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/760265629">https://vimeo.com/760265629</a></p>
+
+<hr /><p><span style="color:rgb(0,0,0);font-weight:bold;background-color:rgb(231,76,60);">9 </span><span style="color:rgb(0,0,0);font-weight:bold;background-color:rgb(231,76,60);">- O que São Créditos?</span></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/762081888">https://vimeo.com/762081888</a></p>
+
+<hr /><p><span style="color:rgb(0,0,0);font-weight:bold;background-color:rgb(231,76,60);">10 </span><span style="color:rgb(0,0,0);font-weight:bold;background-color:rgb(231,76,60);">- Como Configurar os Métodos de Pagamento</span></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/774354220">https://vimeo.com/774354220</a></p>
+
+<hr /><p><span style="color:rgb(0,0,0);font-weight:bold;background-color:rgb(231,76,60);">11 - Como Configurar Para o Cliente Receber o Aviso de Vencimento da Conta Por E-mail.</span></p>
+
+<p><strong>Vídeo Tutorial: ➥ </strong><a href="https://vimeo.com/779430456">https://vimeo.com/779430456</a></p>
+</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-4">
+						<div class="text-left col-md-6">
+							Copyright &copy; 2023 <a href="#">Atmos</a>. All rights reserved.
+						</div>
+						<div class="text-md-right text-sm-left col-md-6">kOffice Panel. v4.4 <b>PREMIUM</b> - <a target="_blank" href="http://kofficepanel.com">kofficepanel.com</a>.</div>
+					</div>
+				</main>
+			</div>
+		</div>
+	</div>
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+
+	<!-- CSS - REQUIRED - START -->
+	<!-- Batch Icons -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_fonts/batch-icons/css/batch-icons.css">
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/bootstrap/bootstrap.min.css">
+	<!-- Material Design Bootstrap -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/bootstrap/mdb.min.css">
+	<!-- Custom Scrollbar -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_plugins/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+	<!-- Hamburger Menu -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/hamburgers/hamburgers.css">
+	<!-- Custom Style -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/style.css">
+	<!-- Animate -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+
+	<!-- CSS - REQUIRED - END -->
+
+	<!-- CSS - OPTIONAL - START -->
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_fonts/font-awesome/css/all.min.css">
+	<!-- Toastr -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_plugins/toastr/toastr.min.css">
+
+	<!-- CSS - DEMO - START -->
+	<!-- CSS - DEMO - END -->
+
+	<!-- CSS - OPTIONAL - END -->
+
+	<!-- QuillPro Styles -->
+	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/quillpro/quillpro.css">
+	
+	<!-- Dark Theme -->
+ 	<link rel="stylesheet" href="https://atmos.koffice.site/views/_css/dark-theme.css">
+
+	<!-- SCRIPTS - REQUIRED START -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- Bootstrap core JavaScript -->
+	
+	<!-- Popper.js - Bootstrap tooltips -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_js/bootstrap/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_js/bootstrap/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_js/bootstrap/mdb.min.js"></script>
+	<!-- Bootbox -->
+	<script src="https://atmos.koffice.site/views/_plugins/bootbox.min.js"></script>
+	<!-- Velocity -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_plugins/velocity/velocity.min.js"></script>
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_plugins/velocity/velocity.ui.min.js"></script>
+	<!-- Custom Scrollbar -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_plugins/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- jQuery Visible -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_plugins/jquery_visible/jquery.visible.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_js/misc/ie10-viewport-bug-workaround.js"></script>
+
+	<!-- SCRIPTS - REQUIRED END -->
+
+	<!-- SCRIPTS - OPTIONAL START -->
+
+	<!-- Toastr -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_plugins/toastr/toastr.min.js"></script>
+
+	<!-- SCRIPTS - DEMO - START -->
+	<!-- Image Placeholder -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_js/misc/holder.min.js"></script>
+	<!-- SCRIPTS - DEMO - END -->
+
+	<!-- SCRIPTS - OPTIONAL END -->
+
+	<!-- QuillPro Scripts -->
+	<script type="text/javascript" src="https://atmos.koffice.site/views/_js/scripts.js"></script>
+
+	<script type="text/javascript">
+		// automatic close alerts
+		$(".alert:not(.no-close)").delay(5000).slideUp(200, function() {
+			$(this).alert('close');
+		});
+
+		const available_themes = ["white_theme","dark_theme"];
+		const allow_change_theme = 1;
+		const default_theme = "dark_theme";
+
+		loadCurrentTheme();
+
+		function loadCurrentTheme() {
+			var c_theme_name = '';
+			if(allow_change_theme && available_themes.includes(Cookies.get('current_theme'))) {
+				c_theme_name = Cookies.get('current_theme');
+			} else {
+				c_theme_name = default_theme;
+			}
+
+			// add theme class to body
+			$('body').addClass(c_theme_name);
+
+			const c_theme_element = $('.navbar-theme .dropdown-item[data-value="' + c_theme_name + '"]');
+
+			// change current theme name on header
+			$('.navbar-theme .c-theme').text(c_theme_element.text());
+
+			// hide current theme element from menu list
+			c_theme_element.parent().hide();
+		}
+
+		// change theme (without reload =3)
+    	$(document).on('click', '.navbar-theme .dropdown-item', function(e){
+    		e.preventDefault();
+    		const theme_title = $(this).text();
+    		const theme_name = $(this).data('value');
+
+    		const c_theme_name = $('.navbar-theme .dropdown-item:hidden').data('value');
+
+    		if(available_themes.includes(theme_name)) {
+    			$('.navbar-theme .dropdown-item:hidden').parent().show();
+    			$('.navbar-theme .dropdown-item:contains("' + theme_title + '")').parent().hide();
+    			
+    			$('.navbar-theme .c-theme').text(theme_title);
+
+    			$('body').removeClass(c_theme_name);
+    			$('body').addClass(theme_name);
+
+    			Cookies.set('current_theme', theme_name, { expires: 999 });
+    		}
+		});
+
+		// update credits on header
+		function updateCredits(){
+			$.post('https://atmos.koffice.site/dashboard/api/?get_credits', function (data) {
+				$('.credits').html(data.credits + " CRÉDITOS");
+			}, "json");
+		}
+
+		// toaster settings
+		toastr.options = {
+			"closeButton": true,
+			"debug": false,
+			"newestOnTop": false,
+			"progressBar": true,
+			"positionClass": "toast-top-center",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+		
+		// tooltip
+		//$('[data-toggle="tooltip"]').tooltip();
+		
+		// pre-loader js
+		$(function () {
+			setTimeout(function(){
+				$("#loader-wrapper").fadeOut(250);
+		    }, 100);
+		});
+	</script>
+</body>
+</html>
